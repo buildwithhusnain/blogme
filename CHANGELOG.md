@@ -19,6 +19,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advanced search with filters
 - User profiles and author pages
 
+## [1.1.0] - 2024-01-20
+
+### Added
+- **Markdown Support**: Full markdown editing and rendering
+- **Rich Text Editor**: EasyMDE markdown editor in Django admin
+- **Syntax Highlighting**: Code blocks with syntax highlighting
+- **Live Preview**: Real-time markdown preview in admin
+- **Enhanced Styling**: Comprehensive CSS for markdown elements
+
 ## [1.0.0] - 2024-01-20
 
 ### Added
@@ -93,6 +102,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - asgiref==3.9.1
 - sqlparse==0.5.3
 - tzdata==2025.2
+- markdown==3.5.2
 
 ### Configuration
 - Development settings with DEBUG=True

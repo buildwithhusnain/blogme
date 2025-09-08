@@ -9,6 +9,22 @@ class BlogAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     readonly_fields = ('created_at', 'updated_at')
     
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'content', 'is_published')
+        }),
+        ('Metadata', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    class Media:
+        css = {
+            'all': ('https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.css',)
+        }
+        js = ('https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.js',)
+    
     def save_model(self, request, obj, form, change):
         if not change:  # If creating new blog
             obj.author = request.user

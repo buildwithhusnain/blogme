@@ -12,6 +12,7 @@ A modern, responsive blog platform built with Django and styled with Tailwind CS
 - **Admin Interface**: Django admin panel for content management
 - **Latest Topics Sidebar**: Dynamic sidebar showing recent blog posts
 - **Clean UI**: Modern, minimalist interface with smooth transitions
+- **Markdown Support**: Rich text editing with markdown syntax and live preview
 
 ## 🛠️ Technology Stack
 
@@ -23,6 +24,7 @@ A modern, responsive blog platform built with Django and styled with Tailwind CS
   - asgiref==3.9.1
   - sqlparse==0.5.3
   - tzdata==2025.2
+  - markdown==3.5.2
 
 ## 📁 Project Structure
 
@@ -120,9 +122,11 @@ blogme/
 ### For Content Creators
 
 1. **Admin Access**: Log in to the admin panel at `/admin/`
-2. **Create Blogs**: Add new blog posts through the admin interface
-3. **Manage Content**: Edit, publish/unpublish, or delete existing blogs
-4. **Author Assignment**: Blogs are automatically assigned to the logged-in user
+2. **Create Blogs**: Add new blog posts using the markdown editor
+3. **Markdown Writing**: Use markdown syntax for rich formatting (headings, lists, code, tables)
+4. **Live Preview**: Preview your content in real-time while editing
+5. **Manage Content**: Edit, publish/unpublish, or delete existing blogs
+6. **Author Assignment**: Blogs are automatically assigned to the logged-in user
 
 ## 🔧 Configuration
 
@@ -169,11 +173,15 @@ The application provides several API endpoints:
 ```python
 class Blog(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = models.TextField()  # Supports Markdown syntax
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
+    
+    def get_markdown_content(self):
+        # Renders markdown to HTML with syntax highlighting
+        return mark_safe(markdown.markdown(self.content, extensions=['codehilite', 'fenced_code', 'tables']))
 ```
 
 ## 🔒 Security Features

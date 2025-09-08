@@ -1,0 +1,55 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.js"></script>
+<style>
+    .CodeMirror {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .editor-toolbar {
+        border: 1px solid #ddd;
+        border-bottom: none;
+        border-radius: 4px 4px 0 0;
+    }
+    .CodeMirror-wrap {
+        border-radius: 0 0 4px 4px;
+    }
+</style>
+{% endblock %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contentTextarea = document.getElementById('id_content');
+    if (contentTextarea) {
+        const easyMDE = new EasyMDE({
+            element: contentTextarea,
+            spellChecker: false,
+            toolbar: [
+                'bold', 'italic', 'heading', '|',
+                'quote', 'unordered-list', 'ordered-list', '|',
+                'link', 'image', '|',
+                'code', 'table', '|',
+                'preview', 'side-by-side', 'fullscreen', '|',
+                'guide'
+            ],
+            placeholder: 'Write your blog content in Markdown...',
+            status: ['autosave', 'lines', 'words', 'cursor'],
+            autosave: {
+                enabled: true,
+                uniqueId: 'blog-content',
+                delay: 1000,
+            },
+            renderingConfig: {
+                singleLineBreaks: false,
+                codeSyntaxHighlighting: true,
+            },
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -2,6 +2,8 @@
 
 {% block title %}- {{ blog.title }}{% endblock %}
 
+{% load static %}
+
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <!-- Back Button -->
@@ -42,10 +44,88 @@
     </header>
 
     <!-- Blog Content -->
-    <article class="prose prose-lg dark:prose-invert max-w-none">
+    <article class="prose prose-lg dark:prose-invert max-w-none markdown-content">
         <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-8">
-            {{ blog.content|linebreaks }}
+            {{ blog.get_markdown_content }}
         </div>
     </article>
 </div>
+
+<style>
+.markdown-content {
+    line-height: 1.7;
+}
+.markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4, .markdown-content h5, .markdown-content h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+.markdown-content h1 { font-size: 2em; }
+.markdown-content h2 { font-size: 1.5em; }
+.markdown-content h3 { font-size: 1.25em; }
+.markdown-content p {
+    margin-bottom: 1em;
+}
+.markdown-content ul, .markdown-content ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+}
+.markdown-content li {
+    margin-bottom: 0.25em;
+}
+.markdown-content blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1em;
+    margin: 1em 0;
+    font-style: italic;
+    color: #6b7280;
+}
+.dark .markdown-content blockquote {
+    border-left-color: #4b5563;
+    color: #9ca3af;
+}
+.markdown-content code {
+    background-color: #f3f4f6;
+    padding: 0.125em 0.25em;
+    border-radius: 0.25em;
+    font-size: 0.875em;
+}
+.dark .markdown-content code {
+    background-color: #374151;
+}
+.markdown-content pre {
+    background-color: #f3f4f6;
+    padding: 1em;
+    border-radius: 0.5em;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+.dark .markdown-content pre {
+    background-color: #1f2937;
+}
+.markdown-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+.markdown-content th, .markdown-content td {
+    border: 1px solid #e5e7eb;
+    padding: 0.5em;
+    text-align: left;
+}
+.dark .markdown-content th, .dark .markdown-content td {
+    border-color: #4b5563;
+}
+.markdown-content th {
+    background-color: #f9fafb;
+    font-weight: 600;
+}
+.dark .markdown-content th {
+    background-color: #374151;
+}
+</style>
 {% endblock %}
